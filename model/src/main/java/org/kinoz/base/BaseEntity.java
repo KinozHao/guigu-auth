@@ -14,7 +14,7 @@ import java.util.Map;
 @Data
 public class BaseEntity implements Serializable {
 
-    //@TableId(type = IdType.AUTO)
+    @TableId(type = IdType.AUTO)
     private String id;
 
     @TableField("create_time")
