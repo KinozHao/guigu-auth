@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements SysRoleService {
     @Override
     public IPage<SysRole> selectPage(Page<SysRole> pageParam, SysRoleQueryVo roleQueryVo) {
-        IPage<SysRole> pageModel = baseMapper.selectPage(pageParam,roleQueryVo);
-        return pageModel;
+        return baseMapper.selectPage(pageParam,roleQueryVo);
     }
 }

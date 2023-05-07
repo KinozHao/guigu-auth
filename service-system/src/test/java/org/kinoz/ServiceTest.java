@@ -7,6 +7,7 @@ import org.kinoz.system.SysRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
 import java.util.List;
 /**
  * @author haogu
@@ -50,5 +51,21 @@ public class ServiceTest {
         //we used @TableLogic at model so this is a logic remove! the data also have in the table not del!
         boolean result = sysRoleService.removeById(9);
         System.out.println(result);
+    }
+
+    @Test
+    public void bubbleSort(){
+        int arr[] = {23,434,232,43,53,231,4353};
+        for (int i = 0; i < arr.length; i++) {
+            for (int j =0; j< arr.length - 1; j++) {
+                if (arr[j] > arr[j+1]){
+                    int temp = 0;
+                    temp = arr[i];
+                    arr[i] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(arr));
     }
 }

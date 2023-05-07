@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.kinoz.exception.LabException;
 import org.kinoz.result.Result;
 import org.kinoz.service.SysRoleService;
 import org.kinoz.system.SysRole;
@@ -30,6 +31,11 @@ public class SysRoleController {
     @ApiOperation(value = "获取所有角色")
     @GetMapping("findAll")
     public Result findAll() {
+        try {
+            int a = 10/0;
+        } catch (Exception e) {
+            throw new LabException(500,"by zero,solve it!!!");
+        }
         List<SysRole> roleList = sysRoleService.list();
         return Result.ok(roleList);
     }
@@ -60,8 +66,15 @@ public class SysRoleController {
 
     }
 
+    @ApiOperation(value = "根据id批量删除角色")
+    @DeleteMapping("batchRemove")
+    //json数据对应java中的list集合
+    public Result batchRemove(@RequestBody List<Long> ids){
+        return  Result.ok(sysRoleService.removeByIds(ids));
+    }
+
     @ApiOperation(value = "获取分页列表")
-    @GetMapping("{page}/{limit}")
+    @GetMapping("/{page}/{limit}")
     public Result index(
             @ApiParam(name = "page", value = "当前页码", required = true)
             @PathVariable Long page,
