@@ -9,11 +9,14 @@ import org.kinoz.exception.LabException;
 import org.kinoz.result.Result;
 import org.kinoz.service.SysRoleService;
 import org.kinoz.system.SysRole;
+import org.kinoz.vo.AssginRoleVo;
 import org.kinoz.vo.SysRoleQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author haogu
@@ -87,5 +90,21 @@ public class SysRoleController {
         Page<SysRole> pageParam = new Page<>(page, limit);
         IPage<SysRole> pageModel = sysRoleService.selectPage(pageParam, roleQueryVo);
         return Result.ok(pageModel);
+    }
+
+    @ApiOperation(value = "获取用户的角色数据")
+    @GetMapping("/toAssign/{roleId}")
+    public Result toAssign(@PathVariable Long userId){
+
+       Map<String, Object> roleMap =  sysRoleService.getRolesByUserId(userId);
+
+       return Result.ok(roleMap);
+    }
+
+    @ApiOperation(value = "用户分配角色")
+    @PostMapping( "/doAssign")
+    public Result doAssign(@RequestBody AssginRoleVo assginRoleVo){
+        sysRoleService.doAssign(assginRoleVo);
+        return Result.ok();
     }
 }

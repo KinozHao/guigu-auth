@@ -15,4 +15,6 @@ import org.kinoz.vo.SysUserQueryVo;
 public interface SysUserService extends IService<SysUser> {
 
     IPage<SysUser> selectPage(Page<SysUser> pageParam, SysUserQueryVo sysUserQueryVo);
+
+    void updateStatus(String id, Long status);
 }

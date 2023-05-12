@@ -63,6 +63,13 @@ public class SysUserController {
         return Result.ok();
     }
 
+    @ApiOperation(value = "更新状态信息")
+    @PutMapping("/update/status/{id}/{status}")
+    public Result updateStatus(@PathVariable String id ,@PathVariable Long status){
+        sysUserService.updateStatus(id,status);
+        return Result.ok();
+    }
+
     @ApiOperation(value = "批量删除用户")
     @PostMapping("/batchRemove")
     public Result BatchDeleteUser(@RequestBody List<Long> ids){
@@ -85,4 +92,5 @@ public class SysUserController {
         IPage<SysUser> pageModel = sysUserService.selectPage(pageParam, userQueryVo);
         return Result.ok(pageModel);
     }
+
 }
