@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.kinoz.result.Result;
 import org.kinoz.service.SysUserService;
 import org.kinoz.system.SysRole;
 import org.kinoz.system.SysUser;
+import org.kinoz.utils.MD5;
 import org.kinoz.vo.SysRoleQueryVo;
 import org.kinoz.vo.SysUserQueryVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,9 @@ public class SysUserController {
     @ApiOperation(value = "添加用户")
     @PostMapping("/save")
     public Result addUser(@RequestBody SysUser user){
+        //密码MD5加密
+        String newPass = MD5.encrypt(user.getPassword());
+        user.setPassword(newPass);
         boolean result = sysUserService.save(user);
         return result ? Result.ok(user) : Result.fail();
     }
